@@ -127,8 +127,8 @@
     <section class="card" id="login">
       <h2 class="en">1. Log in with Threads</h2>
       <h2 class="ko">1. Threads로 로그인</h2>
-      <p class="en">Starts OAuth at Threads and returns an authorization <code>code</code> to this page. Register this exact Redirect URI in Meta App Dashboard → Threads → settings:</p>
-      <p class="ko">Threads OAuth를 시작하고 이 페이지로 인가 <code>code</code>를 돌려받습니다. Meta 앱 대시보드 Threads 설정에 아래 Redirect URI를 그대로 등록하세요:</p>
+      <p class="en">Starts OAuth at Threads and returns an authorization <code>code</code> to this page. Production Redirect URI (must match Meta App Dashboard → Threads settings exactly):</p>
+      <p class="ko">Threads OAuth를 시작하고 이 페이지로 인가 <code>code</code>를 돌려받습니다. 프로덕션 Redirect URI(Meta 앱 대시보드 Threads 설정과 일치해야 함):</p>
       <p><code id="redirect-uri-display"></code></p>
       <div class="actions">
         <button type="button" id="btn-login">Log in with Threads</button>
@@ -204,17 +204,9 @@
     var OAUTH = 'https://threads.net/oauth/authorize';
     // Meta docs also document threads.com; threads.net is the classic endpoint used by this app.
 
-    var redirectUri = (function () {
-      var u = new URL(window.location.href);
-      u.search = '';
-      u.hash = '';
-      var path = u.pathname.endsWith('/') ? u.pathname : (u.pathname + '/');
-      // Prefer trailing-slash canonical for GitHub Pages directory URLs
-      if (!/\/threads-search\/?$/.test(path)) {
-        return u.origin + '/threads-search/';
-      }
-      return u.origin + path.replace(/\/?$/, '/');
-    })();
+    // Production Redirect URI registered in Meta Threads settings.
+    // Always use this exact value (not localhost) so OAuth matches App Dashboard.
+    var redirectUri = 'https://abanable.com/threads-search/';
 
     document.getElementById('redirect-uri-display').textContent = redirectUri;
 
