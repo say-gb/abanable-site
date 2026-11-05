@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Threads Keyword Search Demo | ABANABLE / TheAble</title>
+  <meta name="description" content="Demo page for Meta App Review of threads_basic and threads_keyword_search. No app secret is stored in this static page.">
+  <style>
+    :root {
+      --ink: #1f1b2e;
+      --paper: #fffefa;
+      --muted: #5f586e;
+      --line: #d9d4e6;
+      --accent: #a92330;
+      --purple: #655ca3;
+      --yellow: #f3df42;
+      --ok: #1f6b3a;
+      --warn: #8a5a00;
+      --card: #f7f5fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, "Malgun Gothic", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+    header, main, footer { max-width: 880px; margin: 0 auto; padding: 24px 20px; }
+    header { border-bottom: 1px solid var(--line); }
+    .eyebrow { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); font-weight: 700; }
+    h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.25; margin: 10px 0 12px; letter-spacing: -0.02em; }
+    h2 { font-size: 22px; margin: 0 0 12px; }
+    p, li { color: var(--muted); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 18px 0;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+    button, .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 4px;
+      background: var(--purple);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 18px;
+      min-height: 44px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    button.secondary, .btn.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    button:hover, .btn:hover { background: var(--accent); color: #fff; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    label { display: block; font-size: 13px; font-weight: 700; margin: 12px 0 6px; color: var(--ink); }
+    input[type="text"], input[type="password"], select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 12px;
+      font: inherit;
+      background: #fff;
+    }
+    .status {
+      padding: 12px 14px;
+      border-radius: 6px;
+      background: #eeeaf8;
+      color: var(--ink);
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .status.ok { background: #e7f6ec; color: var(--ok); }
+    .status.warn { background: #fff4d9; color: var(--warn); }
+    .status.err { background: #fdecee; color: var(--accent); }
+    .results { display: grid; gap: 12px; margin-top: 16px; }
+    .post {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .post .meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .lang-toggle { float: right; display: flex; gap: 8px; }
+    .lang-toggle button { padding: 8px 12px; min-height: 36px; font-size: 13px; background: #fff; color: var(--ink); border: 1px solid var(--line); }
+    .lang-toggle button[aria-pressed="true"] { background: var(--purple); color: #fff; border-color: var(--purple); }
+    .ko { display: none; }
+    body.lang-ko .en { display: none; }
+    body.lang-ko .ko { display: block; }
+    body.lang-ko span.ko, body.lang-ko .inline.ko { display: inline; }
+    footer { border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .92em; background: #efeaf8; padding: 1px 5px; border-radius: 3px; }
+    a { color: var(--purple); }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" id="lang-en" aria-pressed="true">EN</button>
+      <button type="button" id="lang-ko" aria-pressed="false">한국어</button>
+    </div>
+    <div class="eyebrow">Meta App Review demo · gb-threads-auto</div>
+    <h1 class="en">Threads Keyword Search demo</h1>
+    <h1 class="ko">Threads 키워드 검색 데모</h1>
+    <p class="en">This static page demonstrates <code>threads_basic</code> and <code>threads_keyword_search</code> for Meta App Review. App secrets are never embedded here.</p>
+    <p class="ko">이 정적 페이지는 Meta App Review용으로 <code>threads_basic</code>과 <code>threads_keyword_search</code> 사용을 보여줍니다. 앱 시크릿은 이 페이지에 넣지 않습니다.</p>
+  </header>
+
+  <main>
+    <section class="card" id="privacy">
+      <h2 class="en">Privacy &amp; data use</h2>
+      <h2 class="ko">개인정보·데이터 이용</h2>
+      <p class="en">Operator: TheAble Corp. (주식회사 더에이블), Republic of Korea. Purpose: help our marketing operators discover public Threads posts about food retail / distribution topics so we can research conversation themes. We request only <code>threads_basic</code> and <code>threads_keyword_search</code>. Access tokens are short-lived and are not stored in browser localStorage by default. Search queries and returned public post metadata are processed to display results on this page; we do not sell this data. Contact: <a href="mailto:kj@abanable.com">kj@abanable.com</a>.</p>
+      <p class="ko">운영: 주식회사 더에이블(TheAble Corp., 대한민국). 목적: 식품 유통·소매 관련 공개 Threads 글을 찾아 대화 주제를 파악하기 위함입니다. 요청 권한은 <code>threads_basic</code>, <code>threads_keyword_search</code>뿐입니다. 액세스 토큰은 단기이며 기본적으로 localStorage에 저장하지 않습니다. 검색어와 공개 글 메타데이터는 결과 표시에만 쓰이며 판매하지 않습니다. 문의: <a href="mailto:kj@abanable.com">kj@abanable.com</a>.</p>
+    </section>
+
+    <section class="card" id="login">
+      <h2 class="en">1. Log in with Threads</h2>
+      <h2 class="ko">1. Threads로 로그인</h2>
+      <p class="en">Starts OAuth at Threads and returns an authorization <code>code</code> to this page. Register this exact Redirect URI in Meta App Dashboard → Threads → settings:</p>
+      <p class="ko">Threads OAuth를 시작하고 이 페이지로 인가 <code>code</code>를 돌려받습니다. Meta 앱 대시보드 Threads 설정에 아래 Redirect URI를 그대로 등록하세요:</p>
+      <p><code id="redirect-uri-display"></code></p>
+      <div class="actions">
+        <button type="button" id="btn-login">Log in with Threads</button>
+        <button type="button" class="secondary" id="btn-clear">Clear session</button>
+      </div>
+      <p id="auth-status" class="status warn" style="margin-top:14px"></p>
+    </section>
+
+    <section class="card" id="token-exchange">
+      <h2 class="en">2. Exchange code for access token</h2>
+      <h2 class="ko">2. code를 액세스 토큰으로 교환</h2>
+      <p class="en"><strong>Recommended (production / App Review):</strong> a tiny serverless backend (e.g. Cloudflare Worker) holds the App Secret, exchanges <code>code</code> via <code>POST https://graph.threads.net/oauth/access_token</code>, and returns a short-lived user token to this page over HTTPS. Set the worker URL below.</p>
+      <p class="ko"><strong>권장(실제·심사):</strong> Cloudflare Worker 같은 작은 서버리스가 App Secret을 보관하고 <code>POST https://graph.threads.net/oauth/access_token</code>으로 code를 교환한 뒤 단기 토큰만 이 페이지에 돌려줍니다. Worker URL을 아래에 넣으세요.</p>
+      <label for="api-base"><span class="en">Token / search API base (optional)</span><span class="ko">토큰·검색 API 베이스 (선택)</span></label>
+      <input id="api-base" type="text" placeholder="https://threads-oauth.example.workers.dev" autocomplete="off">
+      <div class="actions">
+        <button type="button" id="btn-exchange">Exchange code via backend</button>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+      <p class="en"><strong>Fallback for local demo / screencast before the worker is live:</strong> paste a short-lived user access token obtained from Graph API Explorer (same app, same permissions). Never paste the App Secret.</p>
+      <p class="ko"><strong>Worker 배포 전 로컬·녹화용 대안:</strong> Graph API Explorer에서 같은 앱·권한으로 받은 단기 사용자 토큰을 붙여넣으세요. App Secret은 절대 넣지 마세요.</p>
+      <label for="manual-token"><span class="en">Short-lived access token</span><span class="ko">단기 액세스 토큰</span></label>
+      <input id="manual-token" type="password" placeholder="THQV..." autocomplete="off">
+      <div class="actions">
+        <button type="button" class="secondary" id="btn-use-token">Use pasted token</button>
+      </div>
+    </section>
+
+    <section class="card" id="search">
+      <h2 class="en">3. Keyword search</h2>
+      <h2 class="ko">3. 키워드 검색</h2>
+      <p class="en">Calls <code>GET https://graph.threads.net/v1.0/keyword_search</code> with <code>q</code>, <code>search_type=RECENT</code>, and the user access token. Until Advanced Access is approved, results may be limited to the authenticated user's own posts.</p>
+      <p class="ko"><code>GET https://graph.threads.net/v1.0/keyword_search</code>를 <code>q</code>, <code>search_type=RECENT</code>, 사용자 토큰으로 호출합니다. Advanced Access 승인 전에는 로그인한 사용자 본인 글로 결과가 제한될 수 있습니다.</p>
+      <label for="keyword"><span class="en">Keyword</span><span class="ko">키워드</span></label>
+      <input id="keyword" type="text" value="식품" maxlength="50">
+      <div class="actions">
+        <button type="button" id="btn-search" disabled>Search</button>
+      </div>
+      <p id="search-status" class="status" style="margin-top:14px"></p>
+      <div id="results" class="results" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <h2 class="en">Reviewer notes</h2>
+      <h2 class="ko">검수자 안내</h2>
+      <ol class="en">
+        <li>Open this page on desktop.</li>
+        <li>Click <strong>Log in with Threads</strong> and approve <code>threads_basic</code> + <code>threads_keyword_search</code>.</li>
+        <li>If a backend URL is configured, click <strong>Exchange code via backend</strong>. Otherwise paste a short-lived token from Graph API Explorer for the same app.</li>
+        <li>Enter a Korean food-retail keyword (e.g. <code>식품</code>, <code>마트</code>) and click <strong>Search</strong>.</li>
+        <li>Confirm public (or own) posts render below.</li>
+      </ol>
+      <ol class="ko">
+        <li>데스크톱에서 이 페이지를 엽니다.</li>
+        <li><strong>Log in with Threads</strong>를 눌러 <code>threads_basic</code> + <code>threads_keyword_search</code>를 허용합니다.</li>
+        <li>백엔드 URL이 있으면 <strong>Exchange code via backend</strong>를 누릅니다. 없으면 같은 앱의 Graph API Explorer 단기 토큰을 붙여넣습니다.</li>
+        <li>식품 유통 관련 한국어 키워드(예: <code>식품</code>, <code>마트</code>)를 넣고 <strong>Search</strong>를 누릅니다.</li>
+        <li>아래에 공개 글(또는 본인 글)이 표시되는지 확인합니다.</li>
+      </ol>
+      <p class="en">App: <code>gb-threads-auto</code> (Meta app <code>864641073136471</code>, Threads app id <code>1351777677029933</code>).</p>
+      <p class="ko">앱: <code>gb-threads-auto</code> (Meta 앱 <code>864641073136471</code>, Threads 앱 ID <code>1351777677029933</code>).</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© TheAble Corp. · Demo only for Meta App Review · <a href="/">Back to abanable.com</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    var THREADS_APP_ID = '1351777677029933';
+    var GRAPH = 'https://graph.threads.net/v1.0';
+    var OAUTH = 'https://threads.net/oauth/authorize';
+    // Meta docs also document threads.com; threads.net is the classic endpoint used by this app.
+
+    var redirectUri = (function () {
+      var u = new URL(window.location.href);
+      u.search = '';
+      u.hash = '';
+      var path = u.pathname.endsWith('/') ? u.pathname : (u.pathname + '/');
+      // Prefer trailing-slash canonical for GitHub Pages directory URLs
+      if (!/\/threads-search\/?$/.test(path)) {
+        return u.origin + '/threads-search/';
+      }
+      return u.origin + path.replace(/\/?$/, '/');
+    })();
+
+    document.getElementById('redirect-uri-display').textContent = redirectUri;
+
+    var state = {
+      code: null,
+      token: null
+    };
+
+    function $(id) { return document.getElementById(id); }
+    function setStatus(el, text, kind) {
+      el.textContent = text;
+      el.className = 'status' + (kind ? ' ' + kind : '');
+    }
+
+    function setLang(lang) {
+      document.body.classList.toggle('lang-ko', lang === 'ko');
+      $('lang-en').setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+      $('lang-ko').setAttribute('aria-pressed', lang === 'ko' ? 'true' : 'false');
+      try { sessionStorage.setItem('ts_lang', lang); } catch (e) {}
+    }
+    $('lang-en').addEventListener('click', function () { setLang('en'); });
+    $('lang-ko').addEventListener('click', function () { setLang('ko'); });
+    try {
+      var saved = sessionStorage.getItem('ts_lang');
+      if (saved === 'ko') setLang('ko');
+    } catch (e) {}
+
+    function enableSearch(on) {
+      $('btn-search').disabled = !on;
+    }
+
+    function readQuery() {
+      var params = new URLSearchParams(window.location.search);
+      var err = params.get('error_description') || params.get('error');
+      var code = params.get('code');
+      if (err) {
+        setStatus($('auth-status'), 'OAuth error: ' + err, 'err');
+        return;
+      }
+      if (code) {
+        state.code = code;
+        setStatus($('auth-status'), 'Authorization code received. Next: exchange via backend, or paste a short-lived token.\ncode=' + code.slice(0, 12) + '…', 'ok');
+        // Clean URL so refresh does not re-process
+        history.replaceState({}, '', window.location.pathname);
+      } else {
+        setStatus($('auth-status'), 'Not logged in yet. Click “Log in with Threads”.', 'warn');
+      }
+    }
+
+    $('btn-login').addEventListener('click', function () {
+      var url = OAUTH
+        + '?client_id=' + encodeURIComponent(THREADS_APP_ID)
+        + '&redirect_uri=' + encodeURIComponent(redirectUri)
+        + '&scope=' + encodeURIComponent('threads_basic,threads_keyword_search')
+        + '&response_type=code';
+      window.location.href = url;
+    });
+
+    $('btn-clear').addEventListener('click', function () {
+      state.code = null;
+      state.token = null;
+      $('manual-token').value = '';
+      $('results').innerHTML = '';
+      enableSearch(false);
+      setStatus($('auth-status'), 'Session cleared.', 'warn');
+      setStatus($('search-status'), '', '');
+    });
+
+    $('btn-exchange').addEventListener('click', async function () {
+      var base = $('api-base').value.trim().replace(/\/$/, '');
+      if (!base) {
+        setStatus($('auth-status'), 'Set an API base URL first (Cloudflare Worker, etc.).', 'warn');
+        return;
+      }
+      if (!state.code) {
+        setStatus($('auth-status'), 'No authorization code yet. Log in first.', 'warn');
+        return;
+      }
+      setStatus($('auth-status'), 'Exchanging code…', 'warn');
+      try {
+        var res = await fetch(base + '/exchange', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: state.code, redirect_uri: redirectUri })
+        });
+        var data = await res.json().catch(function () { return {}; });
+        if (!res.ok || !data.access_token) {
+          throw new Error(data.error || data.message || ('HTTP ' + res.status));
+        }
+        state.token = data.access_token;
+        enableSearch(true);
+        setStatus($('auth-status'), 'Token received from backend. You can search now.', 'ok');
+      } catch (e) {
+        setStatus($('auth-status'), 'Exchange failed: ' + e.message, 'err');
+      }
+    });
+
+    $('btn-use-token').addEventListener('click', function () {
+      var t = $('manual-token').value.trim();
+      if (!t) {
+        setStatus($('auth-status'), 'Paste a short-lived user access token first.', 'warn');
+        return;
+      }
+      state.token = t;
+      enableSearch(true);
+      setStatus($('auth-status'), 'Using pasted short-lived token (memory only).', 'ok');
+    });
+
+    $('btn-search').addEventListener('click', async function () {
+      var q = $('keyword').value.trim();
+      if (!q) {
+        setStatus($('search-status'), 'Enter a keyword.', 'warn');
+        return;
+      }
+      if (!state.token) {
+        setStatus($('search-status'), 'No access token.', 'err');
+        return;
+      }
+      setStatus($('search-status'), 'Searching…', 'warn');
+      $('results').innerHTML = '';
+
+      var base = $('api-base').value.trim().replace(/\/$/, '');
+      try {
+        var data;
+        if (base) {
+          var res = await fetch(base + '/keyword_search?q=' + encodeURIComponent(q) + '&search_type=RECENT', {
+            headers: { 'Authorization': 'Bearer ' + state.token }
+          });
+          data = await res.json();
+          if (!res.ok) throw new Error((data.error && data.error.message) || data.message || ('HTTP ' + res.status));
+        } else {
+          // Direct browser call — works when Meta CORS allows; otherwise use the worker proxy.
+          var url = GRAPH + '/keyword_search?q=' + encodeURIComponent(q)
+            + '&search_type=RECENT&limit=10&access_token=' + encodeURIComponent(state.token);
+          var res2 = await fetch(url);
+          data = await res2.json();
+          if (!res2.ok || data.error) {
+            throw new Error((data.error && data.error.message) || ('HTTP ' + res2.status));
+          }
+        }
+        var items = data.data || [];
+        setStatus($('search-status'), 'Found ' + items.length + ' result(s).', items.length ? 'ok' : 'warn');
+        items.forEach(function (item) {
+          var el = document.createElement('article');
+          el.className = 'post';
+          var user = (item.username || (item.owner && item.owner.username) || 'unknown');
+          var text = item.text || item.caption || '(no text)';
+          var link = item.permalink || item.shortcode_permalink || '';
+          el.innerHTML = '<div class="meta">@' + escapeHtml(user)
+            + (item.timestamp ? ' · ' + escapeHtml(item.timestamp) : '')
+            + (link ? ' · <a href="' + escapeAttr(link) + '" target="_blank" rel="noopener">open</a>' : '')
+            + '</div><div>' + escapeHtml(text) + '</div>';
+          $('results').appendChild(el);
+        });
+      } catch (e) {
+        setStatus($('search-status'), 'Search failed: ' + e.message + '\nIf this is a CORS error, set the API base to a Worker that proxies keyword_search.', 'err');
+      }
+    });
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+      });
+    }
+    function escapeAttr(s) { return escapeHtml(s); }
+
+    readQuery();
+  })();
+  </script>
+</body>
+</html>
