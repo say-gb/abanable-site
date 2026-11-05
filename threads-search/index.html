@@ -290,6 +290,7 @@
         return;
       }
       setStatus($('auth-status'), 'Exchanging code…', 'warn');
+      if (/^http:\/\/(127\.0\.0\.1|localhost)(:|\/|$)/.test(base)) { window.location.href = base + '/exchange?code=' + encodeURIComponent(state.code); return; }
       try {
         var res = await fetch(base + '/exchange', {
           method: 'POST',
