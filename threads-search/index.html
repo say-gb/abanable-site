@@ -130,7 +130,6 @@
       <p class="en">Starts OAuth at Threads and returns an authorization <code>code</code> to this page. Production Redirect URI (must match Meta App Dashboard → Threads settings exactly):</p>
       <p class="ko">Threads OAuth를 시작하고 이 페이지로 인가 <code>code</code>를 돌려받습니다. 프로덕션 Redirect URI(Meta 앱 대시보드 Threads 설정과 일치해야 함):</p>
       <p><code id="redirect-uri-display"></code></p>
-      <p style="display:none"><label for="full-code">Authorization code (one-time, for backend exchange):</label><br><input id="full-code" readonly style="width:100%;font-family:monospace"></p>
       <div class="actions">
         <button type="button" id="btn-login">Log in with Threads</button>
         <button type="button" class="secondary" id="btn-clear">Clear session</button>
@@ -250,7 +249,6 @@
       if (code) {
         state.code = code;
         setStatus($('auth-status'), 'Authorization code received. Next: exchange via backend, or paste a short-lived token.\ncode=' + code.slice(0, 12) + '…', 'ok');
-        var cf = document.getElementById('full-code'); if (cf) { cf.value = code; cf.parentNode.style.display = 'block'; }
         // Clean URL so refresh does not re-process
         history.replaceState({}, '', window.location.pathname);
       } else {
