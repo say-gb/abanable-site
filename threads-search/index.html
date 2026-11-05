@@ -241,6 +241,10 @@
     function readQuery() {
       var params = new URLSearchParams(window.location.search);
       var err = params.get('error_description') || params.get('error');
+      var bk = params.get('backend');
+      if (bk) { try { sessionStorage.setItem('ts_backend', bk); } catch (e) {} history.replaceState({}, '', window.location.pathname); }
+      try { var sb = sessionStorage.getItem('ts_backend'); if (sb) $('api-base').value = sb; } catch (e) {}
+      $('api-base').addEventListener('change', function () { try { sessionStorage.setItem('ts_backend', this.value.trim()); } catch (e) {} });
       var code = params.get('code');
       if (err) {
         setStatus($('auth-status'), 'OAuth error: ' + err, 'err');
