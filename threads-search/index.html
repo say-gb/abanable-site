@@ -299,6 +299,10 @@
         state.token = data.access_token;
         enableSearch(true);
         setStatus($('auth-status'), 'Token received from backend. You can search now.', 'ok');
+        try {
+          var me = await (await fetch(base + '/me', { headers: { 'Authorization': 'Bearer ' + state.token } })).json();
+          if (me && me.username) setStatus($('auth-status'), 'Token received from backend (threads_basic). Logged in as @' + me.username + ' (id ' + me.id + '). You can search now.', 'ok');
+        } catch (e2) {}
       } catch (e) {
         setStatus($('auth-status'), 'Exchange failed: ' + e.message, 'err');
       }
